@@ -25,6 +25,7 @@ Route::get('/free/board','writeController@freeBoard');
 Route::get('/free/view/{num}','writeController@freeView');
 Route::get('/kakao','KakaoLoginController@index');
 Route::get('/kakao/login','KakaoLoginController@redirectToProvider');
+Route::get('/kakao/login/callback','KakaoLoginController@handleProviderCallback');
 
 Auth::routes();
 
