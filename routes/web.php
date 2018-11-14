@@ -23,6 +23,8 @@ Route::get('/secret/view/{num}','writeController@secretView');
 Route::get('/free/write','writeController@freeWrite');
 Route::get('/free/board','writeController@freeBoard');
 Route::get('/free/view/{num}','writeController@freeView');
+Route::get('/kakao','KakaoLoginController@index');
+Route::get('/kakao/login','KakaoLoginController@redirectToProvider');
 
 Auth::routes();
 

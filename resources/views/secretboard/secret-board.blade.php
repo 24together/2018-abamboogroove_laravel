@@ -101,6 +101,5 @@
     @include('components.pagination')
 @endsection
 @section('footer')
-
     @include('footer')
 @endsection
