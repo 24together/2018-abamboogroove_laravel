@@ -8,7 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class writeController extends Controller
 {
-    public function secretWrite(){
+    public function write(Request $request){
+        $board = new board();
+        $board->title = $request->title;
+        $board->writer = $request->writer;
+        $board->content = $request->content;
+        $board->category = $request->category;
+        // 값을 받아온다
+        $board->save();
+        return redirect('secret/board')->with('message',"글이 정상적으로 등록되었습니다 ! ");
+
+    }
+    public function secretWrite(Request $request){
         return view('secretboard.secret-write-form');
     }
     public function secretBoard(){
