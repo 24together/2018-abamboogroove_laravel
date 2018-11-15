@@ -11,7 +11,7 @@ class loginController extends Controller
     }
 
     public function join(){
-        return view('login.member-join');
+        return view('auth.register');
     }
 
     public function update(){
