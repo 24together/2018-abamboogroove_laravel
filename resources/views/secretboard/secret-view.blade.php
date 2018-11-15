@@ -157,7 +157,7 @@
                      </div>
 
             </span>
-
+        </div>
 @endsection
 
 @section('footer')
