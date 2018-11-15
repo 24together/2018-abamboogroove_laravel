@@ -84,7 +84,7 @@
                             <label for="age" class="col-md-4 col-form-label text-md-right">{{ __('Age') }}</label>
 
                             <div class="col-md-6">
-                                <select name="age" class="custom-select mb-3 {{ $errors->has('age') ? ' is-invalid' : '' }}" >
+                                <select id="age" name="age" class="form-control{{ $errors->has('age') ? ' is-invalid' : '' }}" >
                                     <option value="0">나이대를 선택해 주세요</option>
                                     <option value="10">10대</option>
                                     <option value="20">20대</option>
