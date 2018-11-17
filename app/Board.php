@@ -9,5 +9,8 @@ class Board extends Model
 
     protected $primaryKey='num';
 
-
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }
