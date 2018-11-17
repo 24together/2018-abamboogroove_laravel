@@ -12,18 +12,20 @@ class writeController extends Controller
         $board = new board();
         $board->title = $request->title;
         $board->writer = $request->writer;
-        $board->content = $request->content;
+        $board->content = $request->content_;
         $board->category = $request->category;
+        $board->id = $request->id;
         // 값을 받아온다
         $board->save();
-        return redirect('secret/board')->with('message',"글이 정상적으로 등록되었습니다 ! ");
+        return redirect('secret/view/'.$board->num)->with('message','글이 정상적으로 등록되었습니다 !');
 
     }
     public function secretWrite(Request $request){
         return view('secretboard.secret-write-form');
     }
     public function secretBoard(){
-        $msgs = Board::where('category','like','1')->paginate(5);
+        //페이지 네이션 할 값을 부여한 후 내림차순으로 보이도록
+        $msgs = Board::where('category','like','1')->orderBy('num', 'desc')->paginate(5);
         return view('secretboard.secret-board', compact('msgs'));
     }
     public function secretView($num){
