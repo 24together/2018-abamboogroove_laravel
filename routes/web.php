@@ -28,7 +28,7 @@ Route::get('/kakao/login','KakaoLoginController@redirectToProvider');
 Route::get('/kakao/login/callback','KakaoLoginController@handleProviderCallback');
 
 
-Route::get('/write','writeController@write');
+Route::post('/write','writeController@write');
 //카테고리 값 받아 글쓰기
 Auth::routes();
 
