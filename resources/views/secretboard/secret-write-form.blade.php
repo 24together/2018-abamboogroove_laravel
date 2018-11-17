@@ -26,7 +26,10 @@
             <form action="{{url('/write')}}" method="post">
                 @csrf
                 <div class="form-group">
+                    <!--카테고리 판별-->
                             <input name="category" value="1" hidden>
+                    <!--유저 아이디 넘기기-->
+                            <input name="id" value="{{\Auth::user()["id"]}}" hidden>
                            <span class="span" style="width:20%">
                                 <label for="title">제목: </label>
                             </span>
@@ -46,10 +49,10 @@
 
             <div class="form-group">
                             <span class="span" style="width:20%">
-                                <label for="content">내용</label>
+                                <label for="content_">내용</label>
                             </span>
                 <span  class="span" style="width:70%">
-                                <textarea class="form-control" style="overflow:visible; height:400px" cols="50" id="content" name="content"></textarea>
+                                <textarea class="form-control" style="overflow:visible; height:400px" cols="50" id="content_" name="content_"></textarea>
 
                             </span>
             </div>
