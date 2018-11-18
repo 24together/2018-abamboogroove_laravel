@@ -17,7 +17,12 @@ class writeController extends Controller
         $board->id = $request->id;
         // 값을 받아온다
         $board->save();
-        return redirect('secret/view/'.$board->num)->with('message','글이 정상적으로 등록되었습니다 !');
+        if($request->category ==1){
+            $board_name="secret";
+        }else if($request->category ==2) {
+            $board_name="free";
+        }
+        return redirect($board_name.'/view/'.$board->num)->with('message','글이 정상적으로 등록되었습니다 !');
 
     }
     public function secretWrite(Request $request){
@@ -29,6 +34,11 @@ class writeController extends Controller
         return view('secretboard.secret-board', compact('msgs'));
     }
     public function secretView($num){
+       //조회수 증가
+        $board = Board::find($num);
+        $board->increment('hits');
+        $board->save();
+       //해당 뷰 보여줌 
         $msg = Board::find($num);
         return view('secretboard.secret-view', ['msg' => $msg]);
     }
@@ -36,11 +46,49 @@ class writeController extends Controller
         return view('freeboard.free-write-form');
     }
     public function freeBoard(){
+       //페이지네이션
         $msgs = Board::where('category','like','2')->paginate(5);
         return view('freeboard.free-board',compact('msgs'));
     }
     public function freeView($num){
+       //조회수 증가
+        $board = Board::find($num);
+        $board->increment('hits');
+        $board->save();
+       //해당 뷰 보여줌 
         $msg = Board::find($num);
         return view('freeboard.free-view',['msg'=>$msg]);
     }
+    public function star(Request $request,$num,$category){
+        $board = Board::find($num);
+        $request_star = $request->star;
+        $board->increment('stars',"$request_star");
+        $board->increment('setstar');
+        $board->save();
+
+        if($category==1) {
+            return redirect('/secret/view/'.$num)->with('message','별점 주기 완료');
+         }else if($category==2){
+            return redirect('/free/view/'.$num);
+        }
+    }
+    public function summernote(){
+        $return_value = "";
+
+        if ($_FILES['image']['name']) {
+            if (!$_FILES['image']['error']) {
+                $name = md5(rand(100, 200));
+                $ext = explode('.', $_FILES['image']['name']);
+                $filename = $name . '.' . $ext[1];
+                $destination = 'upload.' . $filename;
+                $location = $_FILES['image']['tmp_name'];#파일 경로
+                move_uploaded_file($location, $destination);
+                $return_value = 'upload.' . $filename;
+            }else{
+                $return_value = '업로드에 실패 하였습니다.: '.$_FILES['image']['error'];
+            }
+        }
+        echo $return_value;
+    }
+
 }
