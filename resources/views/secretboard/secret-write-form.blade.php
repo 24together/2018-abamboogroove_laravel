@@ -3,7 +3,6 @@
 @section('title')
     글쓰기
 @endsection
-
 @section('form')
     LoginForm
 @endsection
@@ -12,6 +11,9 @@
 @endsection
 @section('style1')
     @include('components.style1')
+@endsection
+@section('head')
+    @include('login.login_check')
 @endsection
 @section('main_div')
     board-main-div
