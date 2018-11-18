@@ -12,6 +12,9 @@
 @section('style1')
     @include('components.style1')
 @endsection
+@section('kakao_head')
+    @include('login.kakao_head')
+@endsection
 @section('main_div')
     main-div
 @endsection
@@ -33,7 +36,9 @@
             <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
 
         </div>
-
+        <div class="form-group">
+            @include('login.kakao_login')
+        </div>
         <button type="submit" class="btn btn-primary">Login</button>
 
     </form>
