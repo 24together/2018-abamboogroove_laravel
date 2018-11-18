@@ -26,54 +26,19 @@
                 <p>{{$msg["writer"]}}님의 대나무숲</p>
                 <br>
                 <div align="right">
-                    <form id="Login" action="./star_up.php?num=<?=$num?>&page=<?=$page?>" method="post">
-
-                       <span class="span">
-                                <?php
-                           if ($msg["stars"]>0 && $msg["setstar"]>0){
-                               $star = $msg["stars"]/$msg["setstar"];
-                           }else{
-                               $star = 0;
-                           }
-                           ?>
-                           @for($i=0; $i<5; $i++){
-                           @if($i < $star )
-                           <span><img src="{{asset('img/star2.png')}}" width="25px"></span>
-                           @else
-                           <span><img src="{{asset('img.star.png')}}" width="25px"></span>
-                           @endif
-                           @endfor
-                            </span>
-                        <span class="span">
-                             <select style="vertical-align:baseline" name="star" class="custom-select mb-3" >
-
-                              <option value="0">별별</option>
-                              <option value="1">★☆☆☆☆</option>
-                              <option value="2">★★☆☆☆</option>
-                              <option value="3">★★★☆☆</option>
-                              <option value="4">★★★★☆</option>
-                              <option value="5">★★★★★</option>
-                            </select>
-                        </span>
-                        <span class="span">
-                        <button type="submit" class="btn btn-success">별점주기</button>
-                        </span>
-                    </form>
+                    @include('components.star_up')
                 </div>
-                <div style="max-height:450px;width:100% ;border: 1px solid gray; overflow:scroll">
+                <div style="height:400px;width:100% ;border: 1px solid gray; overflow:scroll">
                     {{$msg["content"]}}
                 </div>
                 <div align="right">
-                    <input type="button" onclick="location.href='board.php?page=<?=$page ?>'"  class="btn btn-light" value="목록보기">
-                    <?php
-/////////////////////////////////////////////////////////////////////
-                    if(\Auth::["email"]==$msg["id"]){
-                    ?>
-                    <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?= $msg["Num"] ?>&page=<?=$page?>'">수정</button>
+                    <input type="button" onclick="location.href='board.php?page=<?php //echo//$page ?>'"  class="btn btn-light" value="목록보기">
+                    @if(\Auth::user()["email"]==$msg["id"]){
+                    <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?php //echo $msg["Num"] ?>&page=<?php //echp $page?>'">수정</button>
                     <input type="submit"
                            onclick="processDelete(<?= $msg["Num"] ?>)"
                            class="btn btn-light" value="삭제">
-                    <?php } ?>
+                    @endif
                 </div>
             </div>
         </div>
