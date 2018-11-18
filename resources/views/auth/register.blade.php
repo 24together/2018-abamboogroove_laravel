@@ -12,7 +12,9 @@
 @section('style1')
     @include('components.style1')
 @endsection
-
+@section('kakao_head')
+    @include('login.kakao_head')
+@endsection
 @section('content')
 
 
@@ -104,6 +106,9 @@
                                 @endif
                             </div>
 
+                        </div>
+                        <div class="form-group">
+                            @include('login.kakao_login')
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
