@@ -13,11 +13,22 @@
 @section('style1')
     @include('components.style1')
 @endsection
+@section('head')
+    @include('login.login_check')
+    <script type="text/javascript">
+        function AjaxCall() {
+            var data = $("form[id=AjaxForm]").serialize() ;/*val가 값 읽어 오는 것이긔 */
+            $.ajax({
+                url : "{{url('star_up/'.$msg["num"].'/1')}}",
+                data: data, dataType:"json",
+                success : function() { alert(json); },
+                error: function() { alert("실패"); } }); }
+    </script>
+@endsection
 @section('main_div')
     view-div
 @endsection
 @section('content')
-
         <div class="panel">
             <img src="{{asset('img/logo5.png')}}" width="150px">
             <p>사람들의 이야기에 귀기울여 보세요.</p>
@@ -46,47 +57,14 @@
                    <p><?php //if($msg["id"]==$_SESSION["uid"]){
                        //echo $msg["writer"]; }
                        //else{ echo "익명"; }?>
-
-                       {{ $msg-> writer}}님의 대나무숲</p>
+                        @if($msg["id"]==\Auth::user()["id"])
+                       {{ $msg-> writer}}님의 대나무숲
+                        @else 익명
+                        @endif
+                   </p>
                    <br>
                     <div align="right">
-                       <form id="Login" action="star_up.php?num={{$msg["num"]}}&page=<?php //echo $page?>" method="post">
-
-                           <span class="span">
-                                    <?php
-                               if ($msg["stars"]>0 && $msg["setstar"]>0){
-                                   $star = $msg["stars"]/$msg["setstar"];
-                               }else{
-                                   $star = 0;
-                               }
-                               for($i=0; $i<5; $i++){
-                               if($i < $star ){
-                               ?>
-                               <span><img src="{{asset('img/star2.png')}}" width="25px"></span>
-                               <?php
-                               }else{
-                               ?>
-                               <span><img src="{{asset('img/star.png')}}" width="25px"></span>
-                               <?php
-                               }
-
-                               }?>
-                                </span>
-                                <span class="span">
-                                 <select style="vertical-align:baseline" name="star" class="custom-select mb-3" >
-
-                                  <option value="0">별별</option>
-                                  <option value="1">★☆☆☆☆</option>
-                                  <option value="2">★★☆☆☆</option>
-                                  <option value="3">★★★☆☆</option>
-                                  <option value="4">★★★★☆</option>
-                                  <option value="5">★★★★★</option>
-                                </select>
-                            </span>
-                            <span class="span">
-                            <button type="submit" class="btn btn-success">별점주기</button>
-                            </span>
-                         </form>
+                       @include('components.star_up')
                     </div>
                    <div style="height:auto;width:100% ;border: 0px solid gray;overflow:visible">
                        <p><?=$msg["content"]?></p>
