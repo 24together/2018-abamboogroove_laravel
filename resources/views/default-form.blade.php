@@ -2,8 +2,9 @@
 <html>
   <head>
     <title>대나무숲::@yield('title')</title>
+        @yield('style1')
         @yield('head')
-       @yield('style1')
+        @yield('kakao_head')
 <!------ Include the above in your HEAD tag ---------->
   </head>
 <body id=@yield('form')>
