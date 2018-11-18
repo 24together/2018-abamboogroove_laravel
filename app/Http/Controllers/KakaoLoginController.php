@@ -22,6 +22,7 @@ class KakaoLoginController extends Controller
         $token = $kaUser->token;
         $id = $kaUser->getId();
         $nickName = $kaUser->getNickName();
+
         //$avatar = $kaUser->getAvatar();
         //정보를 User를 이용해 로그인 처리
 
@@ -37,7 +38,7 @@ class KakaoLoginController extends Controller
         }
         //Auth를 이용하여 회원가입
         if(\Auth::attempt(['email'=> $id, 'password' => $token])){
-            return redirect('/member/login');
+            return redirect('/');
         }
         //dd(response()->json($kaUser,200, [],JSON_PRETTY_PRINT));
         return response()->json($kaUser,200, [],JSON_PRETTY_PRINT);
