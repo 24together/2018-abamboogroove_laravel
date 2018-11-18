@@ -12,9 +12,10 @@
     @include('components.style2')
 @endsection
 @section('head')
+    @include('login.login_check')
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-    @endsection
+@endsection
 @section('main_div')
     board-main-div
 @endsection
@@ -24,7 +25,12 @@
                     <img src="{{asset('img/free_logo.png')}}" width="120px">
                     <p>사람들과 자유롭게 이야기 해 보세요.</p>
                 </div>
-                <form action="./write.php" method="post">
+                <form action="{{url('/write')}}" method="post">
+                    @csrf
+                    <!--카테고리 판별-->
+                        <input name="category" value="2" hidden>
+                        <!--유저 아이디 넘기기-->
+                        <input name="id" value="{{\Auth::user()["id"]}}" hidden>
                     <div>
                         <!--<form action="write.php" method="post">-->
                         <div class="form-group">
@@ -40,8 +46,8 @@
                             <span class="span" style="width:20%">
                                 <label for="writer">작성자: </label>
                             </span>
-                            <span name="name" class="span" style="width:70%">
-                                <p>{{\Auth::user()["name"]}}</p>
+                            <span class="span" style="width:70%">
+                                <input type="text" name="writer" class="form-control" value="{{\Auth::user()["name"]}}" readonly>
                             </span>
                         </div>
 
@@ -49,8 +55,8 @@
                             <span class="span" style="width:20%">
                                 <label for="content">내용</label>
                             </span>
-                            <span name="content" class="span" style="width:70%">
-                                <textarea class="summernote" name="content" row="8" >
+                            <span name="content_" class="span" style="width:70%">
+                                <textarea class="summernote" name="content_" row="8" >
                                 </textarea>
 
                             </span>
@@ -88,7 +94,7 @@
                 $.ajax({
                     data:data,
                     type:"post",
-                    url:"./image_upload.php",
+                    url:"{{url('/image_upload')}}",
                     cache:false,
                     contentType:false,
                     processData:false,
