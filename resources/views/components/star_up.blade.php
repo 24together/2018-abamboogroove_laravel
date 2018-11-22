@@ -1,4 +1,3 @@
-<form id="AjaxForm" action="{{url('star_up/'.$msg["num"].'/1')}}" method="post">
     @csrf
     <span class="span">
         <?php
@@ -34,4 +33,3 @@
     <span class="span">
                             <button type="submit" class="btn btn-success" onclick="AjaxCall()">별점주기</button>
                             </span>
-</form>
