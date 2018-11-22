@@ -26,10 +26,12 @@
                 <p>{{$msg["writer"]}}님의 대나무숲</p>
                 <br>
                 <div align="right">
+                    <form id="AjaxForm" action="{{url('star_up/'.$msg["num"].'/2')}}" method="post">
                     @include('components.star_up')
+                    </form>
                 </div>
-                <div style="height:400px;width:100% ;border: 1px solid gray; overflow:scroll">
-                    {{$msg["content"]}}
+                <div style="min-height:200px;max-height:400px;width:100% ;border: 1px solid gray; overflow:scroll">
+                    <?php echo $msg["content"]?>
                 </div>
                 <div align="right">
                     <input type="button" onclick="location.href='board.php?page=<?php //echo//$page ?>'"  class="btn btn-light" value="목록보기">
@@ -43,6 +45,7 @@
             </div>
         </div>
 @endsection
+
 @section('footer')
     @include('footer')
 @endsection
