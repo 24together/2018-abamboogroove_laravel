@@ -8,15 +8,15 @@
     @yield('style1')
 <!--delete-->          
     	<script>
-		// function processDelete(num) {
-		// 	result = confirm("Are you sure?");
-		// 	if(result) {
-		// 		location.href="delete.php?num="+num;
-		// 	}
-		// }
-        // function errorMsg(msg){
-        //     alert(msg);
-        // }
+		function processDelete(num) {
+			result = confirm("Are you sure?");
+			if(result) {
+				location.href="delete.php?num="+num;
+			}
+		}
+        function errorMsg(msg){
+            alert(msg);
+        }
 	   </script>
 	   <style>
            .view-div {
