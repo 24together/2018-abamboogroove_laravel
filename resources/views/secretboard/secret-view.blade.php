@@ -23,6 +23,15 @@
                 data: data, dataType:"json",
                 success : function() { alert(json); },
                 error: function() { alert("실패"); } }); }
+        function processDelete() {
+            result = confirm("Are you sure?");
+            if(result) {
+                location.href="{{url('delete/'.$msg["num"].'/1')}}";
+            }
+        }
+        function errorMsg(msg){
+            alert(msg);
+        }
     </script>
 @endsection
 @section('main_div')
@@ -41,22 +50,13 @@
             3별점 기능
             4목록보기, 삭제
           -->
-        <div class="content" >
-           <span style="float:left; margin-top:0px;" >
-               <div>
-                    <?php
-                   #난수 출력
-                   //$ran = mt_rand(1, 3);
-                   ?>
-                   <img src="{{asset('img/view1.png')}}" width="350px">
+        <div class="content" style="display:flex;flex-flow:wrap;">
+               <div style="margin-top:0px;">
+                   <img src="{{asset('img/view'.$ran.'.png')}}" width="350px">
                </div>
-            </span>
-            <span  style="float:right;margin-left:20px; margin-right:10px; width:55% ; ">
-               <div style="overflow:scroll; height:400px">
-                   <h5><?php //echo $msg["title"]?></h5>
-                   <p><?php //if($msg["id"]==$_SESSION["uid"]){
-                       //echo $msg["writer"]; }
-                       //else{ echo "익명"; }?>
+               <div style="margin-left:20px; margin-right:10px;width:58%;overflow:scroll; height:400px">
+                   <h5>{{$msg["title"]}}</h5>
+                   <p>
                         @if($msg["id"]==\Auth::user()["id"])
                        {{ $msg-> writer}}님의 대나무숲
                         @else 익명
@@ -64,22 +64,21 @@
                    </p>
                    <br>
                     <div align="right">
-                       @include('components.star_up')
+                        <form id="AjaxForm" action="{{url('star_up/'.$msg["num"].'/1 ')}}" method="post">
+                        @include('components.star_up')
+                        </form>
                     </div>
                    <div style="height:auto;width:100% ;border: 0px solid gray;overflow:visible">
-                       <p><?=$msg["content"]?></p>
+                       <p>{{$msg["content"]}}</p>
                    </div>
                    <div align="right">
-                       <input onclick="location.href='Board.php?page=<?php //echo $page ?>'" type="button" class="btn btn-light" value="목록보기">
-
-                       <?php
-                       //if($uid==$msg["id"]){
-                       ?>
-                       <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?= $msg["Num"] ?>'">수정</button>
+                       <input onclick="location.href='{{url('/secret/board')}}'" type="button" class="btn btn-light" value="목록보기">
+                       @if(\Auth::user()["id"]==$msg["id"])
+                       <button class="btn btn-light" onclick="location.href='{{url('/secret/modify/'.$msg["num"])}}'">수정</button>
                         <input type="button"
-                               onclick="processDelete(<?= $msg["Num"] ?>)"
+                               onclick="processDelete()"
                                class="btn btn-light" value="삭제하기">
-                       <?php //} ?>
+                       @endif
                       </div>
                         <br>
                    <!--댓글쓰기-->
@@ -88,7 +87,7 @@
                             <input type="text" class="form-control-plaintext" id="writer" name="writer" value="<?php //echo $member["name"] ?>" hidden>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="comment" cols="80" rows="2"></textarea>
+                            <textarea class="form-control" name="comment" cols="50" rows="2"></textarea>
                             <input type="submit" class="btn btn-light" value="덧글등록">
                         </div>
 
@@ -133,8 +132,6 @@
                           </div>
                    <?php //  endforeach; ?>
                      </div>
-
-            </span>
         </div>
 @endsection
 
