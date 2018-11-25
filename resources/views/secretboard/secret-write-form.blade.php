@@ -18,6 +18,12 @@
 @section('main_div')
     board-main-div
 @endsection
+@section('container_style')
+    @include('components.container_style')
+@endsection
+@section('imfor_div')
+    @include('components.imfor_div')
+@endsection
 @section('content')
     <div class="panel">
         <img src="{{asset('img/logo5.png')}}" width="150px">
