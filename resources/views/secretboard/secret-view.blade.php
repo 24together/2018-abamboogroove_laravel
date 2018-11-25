@@ -10,6 +10,7 @@
 @section('nav_bar')
     @include('components.navbar1')
 @endsection
+
 @section('style1')
     @include('components.style1')
 @endsection
@@ -84,7 +85,7 @@
                    <!--댓글쓰기-->
                     <form action="../commentWrite.php?num=<?php //echo $num?>&page=<?php //echp $page?>&cn=1" method="post">
                          <div class="form-group">
-                            <input type="text" class="form-control-plaintext" id="writer" name="writer" value="<?php //echo $member["name"] ?>" hidden>
+                            <input type="text" class="form-control-plaintext" id="writer" name="writer" value="<?php //echo $login["name"] ?>" hidden>
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" name="comment" cols="50" rows="2"></textarea>
