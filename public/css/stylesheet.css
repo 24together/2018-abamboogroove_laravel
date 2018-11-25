@@ -5,7 +5,9 @@ body#LoginForm{ background-image:url("../img/background3.png"); background-repea
 body#FreeForm{ background-image:url("../img/background2.png"); background-repeat:no-repeat; background-position:center;
 
 }
+body#MemberForm{ background-image:url("../img/background1.png"); background-repeat:no-repeat; background-position:center;
 
+}
 .logo{
     display:inline-block;
     width:auto;
@@ -46,7 +48,13 @@ body#FreeForm{ background-image:url("../img/background2.png"); background-repeat
     overflow: visible;
         
     }
-
+.imfor-div{
+    max-height: 200px;
+    background: #ffffff none repeat scroll 0 0;
+    boarder-radius: 2px;
+    margin: 10px auto 10px;
+    padding: 20px 20px 20px 21px;
+}
 .main-div {
     max-width: 400px;
 
@@ -59,6 +67,7 @@ body#FreeForm{ background-image:url("../img/background2.png"); background-repeat
 }
 .board-main-div {
     max-width: 900px;
+    min-width: 800px;
     min-height: 77%;
     overflow: visible;
 
