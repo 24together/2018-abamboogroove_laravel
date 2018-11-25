@@ -23,10 +23,14 @@ Route::get('/secret/write','writeController@secretWrite');
 Route::get('/secret/board','writeController@secretBoard');
 Route::get('/secret/view/{num}','writeController@secretView');
 Route::get('/secret/modify/{num}','writeController@secretModify');
-//자유 게시판
+////자유 게시판
+//섬머노트 작성
 Route::get('/free/write','writeController@freeWrite');
 Route::get('/free/board','writeController@freeBoard');
+//섬머노트 뷰
 Route::get('/free/view/{num}','writeController@freeView');
+//섬머노트 저장
+Route::post('/summernote','writeController@summernote')->name('summernotePersist');
 //카카오
 Route::get('/kakao','KakaoLoginController@index');/*카카오 로그인 관련*/
 Route::get('/kakao/login','KakaoLoginController@redirectToProvider');
@@ -34,12 +38,13 @@ Route::get('/kakao/login/callback','KakaoLoginController@handleProviderCallback'
 
 Route::post('/modify/{num}','writeController@modify');
 Route::post('/write','writeController@write');
-Route::post('/delete/{num}/{category}','writeController@delete');
-//카테고리 값 받아 글쓰기
-Route::post('/star_up/{num}/{category}','writeController@star');
-//게시글 별점 부여
-Route::post('/image_upload','writeController@summernote');
 
+//카테고리 값 받아 글쓰기
+Route::post('/delete/{num}/{category}','writeController@delete');
+//게시글 별점 부여
+Route::post('/star_up/{num}/{category}','writeController@star');
+//자신의 글 확인
+Route::get('/mywriting/{id}','writeController@myBoard');
 
 Auth::routes();
 
