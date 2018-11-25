@@ -15,9 +15,26 @@
     @include('login.login_check')
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <script src="lang/summernote-ko-KR.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 300,
+                lang:'ko-KR'
+            });
+
+        });
+    </script>
 @endsection
 @section('main_div')
     board-main-div
+@endsection
+@section('container_style')
+    @include('components.container_style')
+@endsection
+@section('imfor_div')
+    @include('components.imfor_div')
 @endsection
 @section('content')
 
@@ -25,7 +42,7 @@
                     <img src="{{asset('img/free_logo.png')}}" width="120px">
                     <p>사람들과 자유롭게 이야기 해 보세요.</p>
                 </div>
-                <form action="{{url('/write')}}" method="post">
+                <form action="{{route('summernotePersist')}}" method="post">
                     @csrf
                     <!--카테고리 판별-->
                         <input name="category" value="2" hidden>
@@ -72,45 +89,6 @@
                     </div>
                 </form>
 
-@endsection
-@section('bottom')
-
-    <script>
-        $(function (){/*jquery의 onload함수. 페이지가 그려지고 난 후에 실행 */
-            $('.summernote').summernote({
-                height:350,
-                minHeight:null,
-                maxHeight:null,
-                focus:true,
-                placeholder: "testMessage",
-                callbacks:{onImageUpload:function(image){
-                        editor=$(this);
-                        uploadImageContent(image[0],editor);
-                    }}
-            });
-            function uploadImageContent(image,editor){
-                var data = new FormData();
-                data.append("image",image);
-                $.ajax({
-                    data:data,
-                    type:"post",
-                    url:"{{url('/image_upload')}}",
-                    cache:false,
-                    contentType:false,
-                    processData:false,
-                    success:function(url){
-                        var image = $('<img>').attr('src',url);
-                        $(editor).summernote("insertNode",image[0]);
-
-                    },
-                    error:function(data){
-                        console.log(data);
-                    }
-
-                });
-            }
-        });
-    </script>
 @endsection
 
 @section('footer')
