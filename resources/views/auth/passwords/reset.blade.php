@@ -1,65 +1,76 @@
-@extends('layouts.app')
+@extends('default-form')
 
+@section('title')
+    회원정보수정
+@endsection
+@section('form')
+    LoginForm
+@endsection
+@section('nav_bar')
+    @include('components.navbar1')
+@endsection
+@section('style1')
+    @include('components.style1')
+@endsection
+@section('main_div')
+    main-div
+@endsection
+@section('head')
+    @include('login.login_check')
+@endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="panel">
+        <h2>회원 정보 수정</h2>
+        <p>회원정보 수정 후 수정버튼을 눌러주세요.</p>
     </div>
-</div>
+    <form id="Login" action="{{ route('password.update') }}" method="post">
+
+        @csrf
+        <div class="form-group">
+            <span class="Logo" style="width:30%"><label for ="id">Id</label></span>
+            <span class="Logo"style="width:60% "><input style="margint-right:0px" type="text" class="form-control" id = "usr" name="email" value="{{\Auth::user()['email']}}" readonly></span>
+        </div>
+
+        <div class="form-group">
+            <span class="Logo" style="width:30%"><label for="pw" style="margin-right :10px">Password </label></span>
+            <span class="Logo" style="width:60% "><input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" value="{{\Auth::user()['password']}}"></span>
+            @if ($errors->has('password'))
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <span class="Logo" style="width:30%"><label for="name" style="margin-right:10px">Name </label></span>
+            <span class="Logo" style="width:60% "><input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" value="{{\Auth::user()['name']}}"></span>
+            @if ($errors->has('name'))
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="age">Age </label>
+            <select name="age" class="custom-select mb-3" >
+                <option value="0" @if(\Auth::user()['age']==0) selected @endif >나이대를 선택해 주세요</option>
+                @for($i=10; $i<=100;$i=$i+10)
+                    <option value="{{$i}}" @if(\Auth::user()['age']==$i) selected @endif>{{$i}}대</option>
+                @endfor
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">수정</button>
+
+    </form>
+@endsection
+@section('logo')
+    <span class="logo">
+    <img src="{{asset('img/Bamboo.png')}}" width="30px" height="30px" ></span>
+    <span class="logo">
+    <a href="{{asset('/')}}" style="text-decoration:none">
+        <h1 class="form-heading">a bamboo grove</h1></a>
+    </span>
+@endsection
+@section('footer')
+    @include('footer')
 @endsection
