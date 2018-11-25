@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>대나무숲::@yield('title')</title>
+        <mate charset="utf-8"></mate>
         @yield('style1')
         @yield('head')
         @yield('kakao_head')
@@ -13,7 +14,10 @@
 
 
 
-    <div class="container" style="margin-top:50px ">
+    <div class="container" style="margin-top:50px; @yield('container_style')">
+
+@yield('imfor_div')
+
 @yield('logo')
     <div class="login-form">
         <div class="@yield('main_div')" >
