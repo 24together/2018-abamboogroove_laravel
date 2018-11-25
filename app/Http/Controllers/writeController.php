@@ -47,6 +47,11 @@ class writeController extends Controller
         return redirect($category.'/view/'.$num)->with('message','글 수정을 하였습니다.');
     }
 
+    public function myBoard($id){
+        //페이지 네이션 할 값을 부여한 후 내림차순으로 보이도록
+        $msgs = Board::where('id','like',$id)->orderBy('num', 'desc')->paginate(5);
+        return view('member_board', compact('msgs'));
+    }
     /////secretboard//////////////////////
     public function secretWrite(Request $request){
         return view('secretboard.secret-write-form');
@@ -103,23 +108,46 @@ class writeController extends Controller
         }
     }
     ///smarteditor///
-    public function summernote(){
-        $return_value = "";
+    public function summernote(Request $request){
+        $detail=$request->content_;
 
-        if ($_FILES['image']['name']) {
-            if (!$_FILES['image']['error']) {
-                $name = md5(rand(100, 200));
-                $ext = explode('.', $_FILES['image']['name']);
-                $filename = $name . '.' . $ext[1];
-                $destination = 'upload.' . $filename;
-                $location = $_FILES['image']['tmp_name'];#파일 경로
-                move_uploaded_file($location, $destination);
-                $return_value = 'upload/' . $filename;
-            }else{
-                $return_value = '업로드에 실패 하였습니다.: '.$_FILES['image']['error'];
-            }
+        $dom = new \domdocument();
+        $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $images = $dom->getElementsByTagName('img');
+
+        foreach($images as $k => $img){
+            $data = $img->getAttribute('src');
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+
+            $data = base64_decode($data);
+            $image_name= "/upload/".time().$k.'.png';
+            $path = public_path() . $image_name;
+
+            file_put_contents($path, $data);
+
+            $img->removeattribute('src');
+            $img->setattribute('src', $image_name);
         }
-        echo $return_value;
+
+        $detail = $dom->savehtml();
+        $board = new board();
+        $board->title = $request->title;
+        $board->writer = $request->writer;
+        $board->category = $request->category;
+        $board->id = $request->id;
+        $board->content = $detail;
+        $board->save();
+        if($request->category ==1){
+            $board_name="secret";
+        }else if($request->category ==2) {
+            $board_name="free";
+        }
+        return redirect($board_name.'/view/'.$board->num)->with('message','글이 정상적으로 등록되었습니다 !');
+
     }
+
 
 }
