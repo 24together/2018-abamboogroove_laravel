@@ -14,6 +14,12 @@
 @section('main_div')
     board-main-div
 @endsection
+@section('container_style')
+    @include('components.container_style')
+@endsection
+@section('imfor_div')
+    @include('components.imfor_div')
+@endsection
 @section('content')
 
             <div class="panel">
@@ -34,7 +40,7 @@
                     <tr>
                         <td><a href="{{url('/free/view',$msg["num"])}}"><?= $msg["title"]?></a></td>
                         <td><?= $msg["writer"]?> </td>
-                        <td><?= $msg["create_at"] ?> </td>
+                        <td><?= $msg["created_at"] ?> </td>
                         <td><?= $msg["hits"] ?> </td>
                         <td>
                             <div class="span"><!--별저으로 나타내기-->
