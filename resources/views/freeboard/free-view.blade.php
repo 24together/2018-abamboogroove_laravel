@@ -14,6 +14,9 @@
 @section('main_div')
     view-div
 @endsection
+@section('head')
+    @include('login.login_check')
+@endsection
 @section('content')
         <div class="panel">
             <img src="{{asset('img/free_logo.png')}}" width="120px">
@@ -34,7 +37,7 @@
                     <?php echo $msg["content"]?>
                 </div>
                 <div align="right">
-                    <input type="button" onclick="location.href='board.php?page=<?php //echo//$page ?>'"  class="btn btn-light" value="목록보기">
+                    <input type="button" onclick="location.href='{{url('/free/board')}}'"  class="btn btn-light" value="목록보기">
                     @if(\Auth::user()["email"]==$msg["id"]){
                     <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?php //echo $msg["Num"] ?>&page=<?php //echp $page?>'">수정</button>
                     <input type="submit"
