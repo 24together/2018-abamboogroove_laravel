@@ -39,7 +39,7 @@
                   <li style="margin:15px">{{\Auth::user()['name']}}님,  환영합니다</li>
 
                   <li class="margin"><input type="submit" class="btn btn-default" id="navbnt" value="logout"></li>
-                  <li class="margin"><input type="button" class="btn btn-default" value="info" onclick="location.href='update_form.php'"></li>
+                  <li class="margin"><input type="button" class="btn btn-default" value="info" onclick="location.href='{{url('member/update')}}'"></li>
                 </form>
 <!--logout-->
                 @else
