@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;       // Auth 클래스
 use App\User;   // 사용자 테이블
-
+use Illuminate\Support\Facades\Hash;//해싱
 use Illuminate\Http\Request;
 
 class loginController extends Controller
@@ -18,12 +18,17 @@ class loginController extends Controller
     }
 
     public function update(){
-        $user = User::find(1);
-        $user->save();
-        // 세션종료.
-
-        Auth::login($user);
         return view('auth.passwords.reset');
     }
+    public function updatePost(Request $request){
+        $email = $request->email;
+        $password = Hash::make($request->password);
+        //비밀번호 해싱
+        $name = $request->name;
+        $age = $request->age;
 
+        User::where('email',$email)->update(['email'=>$email,'password'=>$password,'name'=>$name,'age'=>$age]);
+
+        return redirect('/');
+    }
 }
