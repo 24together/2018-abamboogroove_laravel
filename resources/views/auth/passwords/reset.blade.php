@@ -23,17 +23,17 @@
         <h2>회원 정보 수정</h2>
         <p>회원정보 수정 후 수정버튼을 눌러주세요.</p>
     </div>
-    <form id="Login" action="{{ route('password.update') }}" method="post">
+    <form id="Login" action="{{url('member/update')}}" method="post">
 
         @csrf
         <div class="form-group">
-            <span class="Logo" style="width:30%"><label for ="id">Id</label></span>
-            <span class="Logo"style="width:60% "><input style="margint-right:0px" type="text" class="form-control" id = "usr" name="email" value="{{\Auth::user()['email']}}" readonly></span>
+            <span class="Logo" style="width:30%"><label for ="email">email</label></span>
+            <span class="Logo"style="width:60% "><input style="margint-right:0px" type="text" class="form-control" id = "email" name="email" value="{{\Auth::user()['email']}}" readonly></span>
         </div>
 
         <div class="form-group">
             <span class="Logo" style="width:30%"><label for="pw" style="margin-right :10px">Password </label></span>
-            <span class="Logo" style="width:60% "><input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" value="{{\Auth::user()['password']}}"></span>
+            <span class="Logo" style="width:60% "><input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" ></span>
             @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
