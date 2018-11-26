@@ -58,7 +58,7 @@
                <div style="margin-left:20px; margin-right:10px;width:58%;overflow:scroll; height:400px">
                    <h5>{{$msg["title"]}}</h5>
                    <p>
-                        @if($msg["id"]==\Auth::user()["id"])
+                        @if($msg["id"]==\Auth::user()["email"])
                        {{ $msg-> writer}}님의 대나무숲
                         @else 익명
                         @endif
@@ -74,7 +74,7 @@
                    </div>
                    <div align="right">
                        <input onclick="location.href='{{url('/secret/board')}}'" type="button" class="btn btn-light" value="목록보기">
-                       @if(\Auth::user()["id"]==$msg["id"])
+                       @if(\Auth::user()["email"]==$msg["id"])
                        <button class="btn btn-light" onclick="location.href='{{url('/secret/modify/'.$msg["num"])}}'">수정</button>
                         <input type="button"
                                onclick="processDelete()"
@@ -105,11 +105,10 @@
                    <div class="container"style="text-align:left;border-top: 1px solid aquamarine;">
                                   <div class="row align-items-start"  >
                                         <div class="col" style="max-width:20%">
-                                          <?php
-                                            //                                              if($_SESSION["name"]==$cmsg["writer"]){
-                                            //                                                  echo $cmsg["writer"];
-                                            //                                              }else {echo "익명";}
-                                            //                                              ?>
+                                          @if($msg['id']==\Auth::user()['email'])
+                                              {{$msg['writer']}}
+                                          @else 익명
+                                          @endif
                                         </div>
                                         <div class="col" style="text-align:right">
                                             <!--좋아요 누르기-->    <span class="span">
