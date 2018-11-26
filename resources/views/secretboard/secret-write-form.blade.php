@@ -37,7 +37,7 @@
                     <!--카테고리 판별-->
                             <input name="category" value="1" hidden>
                     <!--유저 아이디 넘기기-->
-                            <input name="id" value="{{\Auth::user()["id"]}}" hidden>
+                            <input name="id" value="{{\Auth::user()["email"]}}" hidden>
                            <span class="span" style="width:20%">
                                 <label for="title">제목: </label>
                             </span>
