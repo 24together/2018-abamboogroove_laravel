@@ -18,6 +18,7 @@ Route::get('/', 'mainController@main');/*접속했을 때 메인만 보이려면
 Route::get('/member/login','loginController@login');
 Route::get('/member/join','loginController@join');
 Route::get('/member/update','loginController@update');
+Route::post('/member/update','loginController@updatePost');
 //익명 게시판
 Route::get('/secret/write','writeController@secretWrite');
 Route::get('/secret/board','writeController@secretBoard');
@@ -45,7 +46,7 @@ Route::post('/delete/{num}/{category}','writeController@delete');
 Route::post('/star_up/{num}/{category}','writeController@star');
 //자신의 글 확인
 Route::get('/mywriting/{id}','writeController@myBoard');
-
+Route::post('/member/board/delete','writeController@myBoardDelete');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
