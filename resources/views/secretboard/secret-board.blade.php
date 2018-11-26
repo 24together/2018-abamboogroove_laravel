@@ -28,17 +28,17 @@
             <img src="{{asset(('img/logo5.png'))}}" width="150px">
         </div>
         <p style="text-align:center">사람들의 이야기에 귀기울여 보세 요.</p>
+        @if(\Auth::check())
         <div class="span" style="margin-bottom:20px; text-align:left">
             <span><img src="{{asset('img/bamboo2.png')}}" width="20px"></span>
             <span> : {{\Auth::user()["write_count"]}}</span>
-
             @if(\Auth::user()["write_count"]>0)
             <p>죽순을 사용하여 익명 게시글을 써 볼까요?</p>
             @else
             <p>죽순이 있으면 익명 게시글을 쓸 수 있어요</p>
             @endif
         </div>
-
+        @endif
 
         <!--게시판 내용-->
         <div class="container">
