@@ -46,11 +46,21 @@ class writeController extends Controller
         Board::where('num',$num)->update(['title'=>$title,'content'=>$content]);
         return redirect($category.'/view/'.$num)->with('message','글 수정을 하였습니다.');
     }
-
+    //////memberboard///////////////////////
     public function myBoard($id){
         //페이지 네이션 할 값을 부여한 후 내림차순으로 보이도록
         $msgs = Board::where('id','like',$id)->orderBy('num', 'desc')->paginate(5);
         return view('member_board', compact('msgs'));
+    }
+    public function myBoardDelete(Request $request){
+        $id = $request->id;
+        $msgs = Board::where('id','like',$id)->orderBy('num', 'desc')->paginate(5);
+        $check_list = $request->check_list;
+        foreach($check_list as $num){
+            Board::where('num',$num)->delete();
+
+        }
+        return redirect('mywriting/'.$id);
     }
     /////secretboard//////////////////////
     public function secretWrite(Request $request){
