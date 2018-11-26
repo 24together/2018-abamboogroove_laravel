@@ -47,7 +47,7 @@
                     <!--카테고리 판별-->
                         <input name="category" value="2" hidden>
                         <!--유저 아이디 넘기기-->
-                        <input name="id" value="{{\Auth::user()["id"]}}" hidden>
+                        <input name="id" value="{{\Auth::user()["email"]}}" hidden>
                     <div>
                         <!--<form action="write.php" method="post">-->
                         <div class="form-group">
