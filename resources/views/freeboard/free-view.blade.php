@@ -16,6 +16,19 @@
 @endsection
 @section('head')
     @include('login.login_check')
+    <script type="text/javascript">
+        function errorMsg(msg){
+            alert(msg);
+        }
+    </script>
+    <script>
+        function processDelete() {
+            result = confirm("Are you sure?");
+            if(result) {
+                location.href="{{url('delete/'.$msg["num"].'/2')}}";
+            }
+        }
+    </script>
 @endsection
 @section('content')
         <div class="panel">
@@ -38,10 +51,10 @@
                 </div>
                 <div align="right">
                     <input type="button" onclick="location.href='{{url('/free/board')}}'"  class="btn btn-light" value="목록보기">
-                    @if(\Auth::user()["email"]==$msg["id"]){
+                    @if(\Auth::user()["email"]==$msg["id"])
                     <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?php //echo $msg["Num"] ?>&page=<?php //echp $page?>'">수정</button>
-                    <input type="submit"
-                           onclick="processDelete(<?= $msg["Num"] ?>)"
+                    <input type="button"
+                           onclick="processDelete()"
                            class="btn btn-light" value="삭제">
                     @endif
                 </div>
