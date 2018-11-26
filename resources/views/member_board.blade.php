@@ -5,11 +5,35 @@
 @section('form')
     MemberForm
 @endsection
-@section('nav_bar')
-    @include('components.navbar2')
-@endsection
 @section('style1')
     @include('components.style2')
+@endsection
+@section('nav_bar')
+    <nav class="navbar navbar-inverse" style="border:0px none white">
+        <div class="container-fluid" style="background-color:white">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{url('/')}}" style="color:#C592C0">a bamboo grove</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{url('/')}}" style="background-color:#C592C0">Home</a></li>
+                <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" href="#"style="color:#C592C0"
+                    >대나무숲<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{url('/secret/board')}}" style="color:#C592C0">익명게시판</a></li>
+                        <li><a href="{{url('/secret/write')}}" style="color:#C592C0">게시글 쓰기</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" href="#"style="color:#C592C0"
+                    >자유게시판<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{url('/free/board')}}" style="color:#C592C0">게시판</a></li>
+                        <li><a href="{{url('/free/write')}}" style="color:#C592C0">게시글 쓰기</a></li>
+                    </ul>
+                </li>
+                <li><a href="./introduce.php"style="color:#C592C0">제작자소개</a></li>
+            </ul>
+        </div>
+    </nav>
 @endsection
 @section('main_div')
     board-main-div
@@ -23,13 +47,17 @@
 @section('content')
 
     <div class="panel">
-        <img src="{{asset('img/free_logo.png')}}" width="120px">
+        <img src="{{asset('img/logo5.png')}}" width="150px">
         <p>회원 글 확인</p>
     </div>
     <!--게시판 내용-->
     <div >
+        <form action="{{url('member/board/delete')}}" method="post">
+            @csrf
+            <input name="id" value="{{\Auth::user()['id']}}" hidden>
         <table class="table table-list-search">
             <tr>
+                <td></td>
                 <th>게시판</th>
                 <th>제목</th>
                 <th>작성자</th>
@@ -39,6 +67,7 @@
             </tr>
             @foreach($msgs as $msg)
                 <tr>
+                    <td><input type="checkbox" name="check_list[]"  value="{{$msg["num"]}}"></td>
                     @if($msg["category"]==1)
                         <td>익명</td>
                         <td><a href="{{url('/secret/view',$msg["num"])}}"><?= $msg["title"]?></a></td>
@@ -69,6 +98,10 @@
                 </tr>
             @endforeach
         </table>
+            <div style="text-align:right">
+            <input type="submit" class="btn btn-info" value="선택 삭제">
+            </div>
+        </form>
     </div>
 @endsection
 @section('pagination')
