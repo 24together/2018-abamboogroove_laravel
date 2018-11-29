@@ -46,6 +46,26 @@ class writeController extends Controller
         Board::where('num',$num)->update(['title'=>$title,'content'=>$content]);
         return redirect($category.'/view/'.$num)->with('message','글 수정을 하였습니다.');
     }
+    public function report($num,$category){
+        $board = Board::find($num);
+        $board->increment('report_count');
+        if($board['report_count']>=5){
+            $board->update(['category'=>3]);
+        }
+        $board->save();
+        if($board['category'] ==1){
+            $category = "secret";
+        }else if($board['category'] ==2){
+            $category = "free";
+        }
+        $message = "<script>alert('신고가 완료 되었습니다.');</script>";
+
+        if($board['category']==3){
+            return redirect($category.'/board',['message'=>$message]);
+        }else{
+            return redirect($category.'/view/'.$num,['message'=>$message]);
+        }
+    }
     //////memberboard///////////////////////
     public function myBoard($id){
         //페이지 네이션 할 값을 부여한 후 내림차순으로 보이도록
