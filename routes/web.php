@@ -47,6 +47,11 @@ Route::post('/star_up/{num}/{category}','writeController@star');
 //자신의 글 확인
 Route::get('/mywriting/{id}','writeController@myBoard');
 Route::post('/member/board/delete','writeController@myBoardDelete');
+//신고 기능
+Route::post('/report/{num}/{category}','writeController@report');
+
+
 Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
