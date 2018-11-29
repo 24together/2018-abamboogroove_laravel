@@ -28,10 +28,14 @@
                 location.href="{{url('delete/'.$msg["num"].'/2')}}";
             }
         }
+        @if(isset($message))
+            {{$message}}
+        @endif
     </script>
 @endsection
 @section('content')
-        <div class="panel">
+
+    <div class="panel">
             <img src="{{asset('img/free_logo.png')}}" width="120px">
             <p>사람들의 이야기에 귀기울여 보세요.</p>
         </div>
@@ -50,13 +54,19 @@
                     <?php echo $msg["content"]?>
                 </div>
                 <div align="right">
-                    <input type="button" onclick="location.href='{{url('/free/board')}}'"  class="btn btn-light" value="목록보기">
-                    @if(\Auth::user()["email"]==$msg["id"])
-                    <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?php //echo $msg["Num"] ?>&page=<?php //echp $page?>'">수정</button>
-                    <input type="button"
-                           onclick="processDelete()"
-                           class="btn btn-light" value="삭제">
+                    <span style="display:inline-block">
+                        <input type="button" onclick="location.href='{{url('/free/board')}}'"  class="btn btn-light" value="목록보기">
+                        @if(\Auth::user()["email"]==$msg["id"])
+                        <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?php //echo $msg["Num"] ?>&page=<?php //echp $page?>'">수정</button>
+                        <input type="button" onclick="processDelete()" class="btn btn-light" value="삭제">
+                    </span>
                     @endif
+                    <span style="display:inline-block">
+                        <form action="{{url('report/'.$msg['num'].'/2')}}" method="post">
+                            @csrf
+                            <input type="submit" onclick="location.href='{{url('report/'.$msg['num'].'/2')}}'" class="btn btn-light" value="신고">
+                        </form>
+                    </span>
                 </div>
             </div>
         </div>
