@@ -9,6 +9,9 @@ class Board extends Model
 
     protected $primaryKey='num';
 
+    protected $fillable = [
+        'category', 'writer', 'title','id'
+    ];
     public function comments()
     {
         return $this->hasMany('App\Comment');
