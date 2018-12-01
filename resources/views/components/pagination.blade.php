@@ -1,3 +1,3 @@
 <div class = text-center">
-    {!! $msgs->render() !!}
+    {{ $msgs->appends(['category' => $category])->links() }}
 </div>
