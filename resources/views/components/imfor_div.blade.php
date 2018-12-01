@@ -12,7 +12,7 @@
     <!--내가 쓴 글-->
     <div class="span">
    <span>
-       <a href="{{url('/mywriting/'.\Auth::user()['id'])}}">내가 쓴 글</a>&nbsp;&nbsp;
+       <a href="{{url('/mywriting/'.\Auth::user()['email'].'/'.$page)}}">내가 쓴 글</a>&nbsp;&nbsp;
    </span>
    <span>
         <form action="{{route('logout')}}" method="post" style="display:inline-block" >
