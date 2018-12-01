@@ -21,7 +21,12 @@
     @include('components.imfor_div')
 @endsection
 @section('content')
-
+    @if (isset($message))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
             <div class="panel">
                 <img src="{{asset('img/free_logo.png')}}" width="120px">
                 <p>사람들과 자유롭게 이야기 해 보세요.</p>
@@ -38,15 +43,15 @@
                     </tr>
                     @foreach($msgs as $msg)
                     <tr>
-                        <td><a href="{{url('/free/view',$msg["num"])}}"><?= $msg["title"]?></a></td>
-                        <td><?= $msg["writer"]?> </td>
-                        <td><?= $msg["created_at"] ?> </td>
-                        <td><?= $msg["hits"] ?> </td>
+                        <td><a href="{{route('board.show',['num'=>$msg->num, 'page'=>$page])}}">{{$msg->title}}</a></td>
+                        <td>{{$msg->writer}} </td>
+                        <td>{{$msg->created_at}} </td>
+                        <td>{{$msg->hits}} </td>
                         <td>
                             <div class="span"><!--별저으로 나타내기-->
                                 <?php
-                                if ($msg["stars"]>0 && $msg["setstar"]>0){
-                                    $star = $msg["stars"]/$msg["setstar"];
+                                if ($msg->stars >0 && $msg->setstar >0){
+                                    $star = $msg-> stars /$msg->setstar;
                                 }else{
                                     $star = 0;
                                 }
