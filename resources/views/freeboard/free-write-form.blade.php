@@ -13,19 +13,8 @@
 @endsection
 @section('head')
     @include('login.login_check')
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-    <script src="lang/summernote-ko-KR.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('.summernote').summernote({
-                height: 300,
-                lang:'ko-KR'
-            });
-
-        });
-    </script>
+    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
 @endsection
 @section('main_div')
     board-main-div
@@ -42,7 +31,7 @@
                     <img src="{{asset('img/free_logo.png')}}" width="120px">
                     <p>사람들과 자유롭게 이야기 해 보세요.</p>
                 </div>
-                <form action="{{route('summernotePersist')}}" method="post">
+                <form action="{{route('board.store',['page'=>$page])}}" method="post">
                     @csrf
                     <!--카테고리 판별-->
                         <input name="category" value="2" hidden>
@@ -73,9 +62,15 @@
                                 <label for="content">내용</label>
                             </span>
                             <span name="content_" class="span" style="width:70%">
-                                <textarea class="summernote" name="content_" row="8" >
-                                </textarea>
+                                <textarea name="content_" row="8" id="content">
 
+                                </textarea>
+                            <script type="text/javascript">
+                                        CKEDITOR.replace('content', {
+                                            'filebrowserUploadUrl': '/upload.php'
+                                        });
+
+                                    </script>
                             </span>
                         </div>
                         <div class="form-group">
