@@ -19,15 +19,15 @@
                 <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" href="#"style="color:#C592C0"
                     >대나무숲<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{url('/secret/board')}}" style="color:#C592C0">익명게시판</a></li>
-                        <li><a href="{{url('/secret/write')}}" style="color:#C592C0">게시글 쓰기</a></li>
+                        <li><a href="{{route('board.index',['category'=>1,'page'=>1])}}" style="color:#C592C0">익명게시판</a></li>
+                        <li><a href="{{route('board.create',['category'=>1,'page'=>1])}}" style="color:#C592C0">게시글 쓰기</a></li>
                     </ul>
                 </li>
                 <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" href="#"style="color:#C592C0"
                     >자유게시판<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{url('/free/board')}}" style="color:#C592C0">게시판</a></li>
-                        <li><a href="{{url('/free/write')}}" style="color:#C592C0">게시글 쓰기</a></li>
+                        <li><a href="{{route('board.index',['category'=>2,'page'=>1])}}" style="color:#C592C0">게시판</a></li>
+                        <li><a href="{{route('board.create',['category'=>2,'page'=>1])}}" style="color:#C592C0">게시글 쓰기</a></li>
                     </ul>
                 </li>
                 <li><a href="./introduce.php"style="color:#C592C0">제작자소개</a></li>
@@ -52,7 +52,7 @@
     </div>
     <!--게시판 내용-->
     <div >
-        <form action="{{url('member/board/delete')}}" method="post">
+        <form action="{{url('member/board/delete/'.$page)}}" method="post">
             @csrf
             <input name="id" value="{{\Auth::user()['id']}}" hidden>
         <table class="table table-list-search">
@@ -70,10 +70,13 @@
                     <td><input type="checkbox" name="check_list[]"  value="{{$msg["num"]}}"></td>
                     @if($msg["category"]==1)
                         <td>익명</td>
-                        <td><a href="{{url('/secret/view',$msg["num"])}}"><?= $msg["title"]?></a></td>
-                    @else($msg["category"]==2)
+                        <td><a href="{{route('board.show',['num'=>$msg->num,'page'=>$page])}}"><?= $msg["title"]?></a></td>
+                    @elseif($msg["category"]==2)
                         <td>자유</td>
-                        <td><a href="{{url('/free/view',$msg["num"])}}"><?= $msg["title"]?></a></td>
+                        <td><a href="{{route('board.show',['num'=>$msg->num,'page'=>$page])}}"><?= $msg["title"]?></a></td>
+                    @elseif($msg["category"]==3)
+                        <td>신고</td>
+                        <td><a href="{{url('/mywriting/view/'.$msg["num"].'/'.$page)}}"><?= $msg["title"]?></a></td>
                     @endif
                     <td><?= $msg["writer"]?> </td>
                     <td><?= $msg["created_at"] ?> </td>
@@ -105,7 +108,9 @@
     </div>
 @endsection
 @section('pagination')
-    @include('components.pagination')
+    <div class = text-center">
+        {{ $msgs->links() }}
+    </div>
 @endsection
 @section('footer')
     @include('footer')
