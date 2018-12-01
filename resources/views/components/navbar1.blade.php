@@ -8,10 +8,10 @@
             <a class="nav-link" href="{{url('/')}}" style="color:gray">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{url('/secret/board')}}"style="color:gray">익명게시판</a>
+            <a class="nav-link" href="{{route('board.index',['category'=>1,'page'=>1])}}"style="color:gray">익명게시판</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{url('secret/write')}}"style="color:gray">글쓰기</a>
+            <a class="nav-link" href="{{route('board.create',['category'=>1,'page'=>1])}}"style="color:gray">글쓰기</a>
         </li>
     </ul>
 </nav>
