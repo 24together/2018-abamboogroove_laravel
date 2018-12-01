@@ -25,16 +25,29 @@
         function processDelete() {
             result = confirm("Are you sure?");
             if(result) {
-                location.href="{{url('delete/'.$msg["num"].'/2')}}";
+                location.href="{{url('delete/'.$msg->num)}}";
             }
         }
-        @if(isset($message))
-            {{$message}}
-        @endif
+        function processReport() {
+            result = confirm("Are you sure?");
+            if (result) {
+                @if(isset($page))
+                    location.href = "{{url('report/'.$msg['num'].'/1/'.$page)}}";
+                @else
+                    location.href = "{{url('report/'.$msg['num'].'/1/1')}}";
+                @endif
+
+            }
+        }
     </script>
 @endsection
 @section('content')
-
+    @if (isset($message))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
     <div class="panel">
             <img src="{{asset('img/free_logo.png')}}" width="120px">
             <p>사람들의 이야기에 귀기울여 보세요.</p>
@@ -42,8 +55,8 @@
         <!--게시판 내용-->
         <div class="content" align="justify">
             <div>
-                <h5>{{$msg["title"]}}</h5>
-                <p>{{$msg["writer"]}}님의 대나무숲</p>
+                <h5>{{$msg->title}}</h5>
+                <p>{{$msg->writer}}님의 대나무숲</p>
                 <br>
                 <div align="right">
                     <form id="AjaxForm" action="{{url('star_up/'.$msg["num"].'/2')}}" method="post">
@@ -55,17 +68,14 @@
                 </div>
                 <div align="right">
                     <span style="display:inline-block">
-                        <input type="button" onclick="location.href='{{url('/free/board')}}'"  class="btn btn-light" value="목록보기">
-                        @if(\Auth::user()["email"]==$msg["id"])
-                        <button class="btn btn-light" onclick="location.href='modify_form.php?num=<?php //echo $msg["Num"] ?>&page=<?php //echp $page?>'">수정</button>
+                        <input type="button" onclick="location.href='{{route('board.index',['category'=>2,'page'=>$page])}}'"  class="btn btn-light" value="목록보기">
+                        @if(\Auth::user()["email"]==$msg->id)
+                        <button class="btn btn-light" onclick="location.href='{{route('board.update',['category'=>1,'num'=>$msg->num,'page'=>$page])}}'">수정</button>
                         <input type="button" onclick="processDelete()" class="btn btn-light" value="삭제">
                     </span>
                     @endif
                     <span style="display:inline-block">
-                        <form action="{{url('report/'.$msg['num'].'/2')}}" method="post">
-                            @csrf
-                            <input type="submit" onclick="location.href='{{url('report/'.$msg['num'].'/2')}}'" class="btn btn-light" value="신고">
-                        </form>
+                        <input type="submit"  onclick="processReport()" class="btn btn-light" value="신고">
                     </span>
                 </div>
             </div>
