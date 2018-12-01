@@ -6,8 +6,8 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="{{url('/')}}"style="color:gray">Home</a></li>
-            <li><a href="{{url('/free/board')}}" style="color:gray">자유 게시판</a></li>
-            <li><a href="{{url('/free/write')}}" style="color:gray">글쓰기</a></li>
+            <li><a href="{{route('board.index',['category'=>2,'page'=>1])}}" style="color:gray">자유 게시판</a></li>
+            <li><a href="{{route('board.create',['category'=>2,'page'=>1])}}" style="color:gray">글쓰기</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
         </ul>
