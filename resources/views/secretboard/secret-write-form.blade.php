@@ -31,7 +31,7 @@
     </div>
 
         <div>
-            <form action="{{url('/write')}}" method="post">
+            <form action="{{route('board.store',['page'=>1])}}" method="post">
                 @csrf
                 <div class="form-group">
                     <!--카테고리 판별-->
@@ -69,7 +69,7 @@
                                 <button class="btn btn-light" type="submit" >공유하기</button>
                             </span>
                 <span class="span">
-                                <button class="btn btn-light" onclick="location.href='board.blade.phpboard.blade.php'" >목록보기</button>
+                                <button class="btn btn-light" onclick="location.href='{{route('board.index',['category'=>1,'page'=>1])}}'" >목록보기</button>
                             </span>
             </div>
             </form>
