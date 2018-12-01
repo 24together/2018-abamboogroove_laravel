@@ -23,7 +23,12 @@
     @include('components.imfor_div')
 @endsection
 @section('content')
-
+    @if (isset($message))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
         <div class="panel" style="text-align:center">
             <img src="{{asset(('img/logo5.png'))}}" width="150px">
         </div>
@@ -65,21 +70,21 @@
             ?>
                 @foreach($msgs as $msg)
                     <tr>
-                        <td><a href="{{url('/secret/view/'.$msg["num"])}}">{{$msg["title"]}}</a></td>
+                        <td><a href="{{route('board.show',['num'=>$msg->num,'page'=>$page])}}">{{$msg->title}}</a></td>
                         <!-- 로그인 아이디 유무로 익명 나타낼 지 정하기-->
-                        <td>@if (\Auth::user()['email']==$msg['id'])
-                                {{$msg['writer']}}
+                        <td>@if (\Auth::user()['email']==$msg->id)
+                                {{$msg->writer}}
                             @else 익명</td>
                         @endif
-                        <td>{{$msg['created_at']}}</td>
-                        <td>{{$msg['hits']}}</td>
+                        <td>{{$msg->created_at}}</td>
+                        <td>{{$msg->hits}}</td>
                         <td>
 
                             <div class = "span">
                                 <!--별점으로 나타내기-->
                                 <?php
-                                if ($msg["stars"]>0 && $msg["setstar"]>0){
-                                    $star = $msg["stars"]/$msg["setstar"];
+                                if ($msg->stars > 0 && $msg->setstar > 0){
+                                    $star = $msg->stars /$msg->setstar;
                                 }else{
                                     $star = 0;
                                 }
