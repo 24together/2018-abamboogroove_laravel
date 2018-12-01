@@ -17,21 +17,29 @@
 @section('head')
     @include('login.login_check')
     <script type="text/javascript">
-        function AjaxCall() {
-            var data = $("form[id=AjaxForm]").serialize() ;/*val가 값 읽어 오는 것이긔 */
-            $.ajax({
-                url : "{{url('star_up/'.$msg["num"].'/1')}}",
-                data: data, dataType:"json",
-                success : function() { alert(json); },
-                error: function() { alert("실패"); } }); }
+
+
         function processDelete() {
             result = confirm("Are you sure?");
             if(result) {
-                location.href="{{url('delete/'.$msg["num"].'/1')}}";
+                location.href="{{url('delete/'.$msg->num)}}";
             }
         }
         function errorMsg(msg){
             alert(msg);
+        }
+        function processReport(){
+            result = confirm("Are you sure?");
+            if(result) {
+                @if(isset($page))
+                    location.href="{{url('report/'.$msg['num'].'/1/'.$page)}}";
+                        @else
+                    location.href="{{url('report/'.$msg['num'].'/1/1')}}";
+                @endif
+
+            }
+
+
         }
     </script>
 @endsection
@@ -39,6 +47,12 @@
     view-div
 @endsection
 @section('content')
+    @if (isset($message))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
         <div class="panel">
             <img src="{{asset('img/logo5.png')}}" width="150px">
             <p>사람들의 이야기에 귀기울여 보세요.</p>
@@ -73,13 +87,19 @@
                        <p>{{$msg["content"]}}</p>
                    </div>
                    <div align="right">
-                       <input onclick="location.href='{{url('/secret/board')}}'" type="button" class="btn btn-light" value="목록보기">
-                       @if(\Auth::user()["email"]==$msg["id"])
-                       <button class="btn btn-light" onclick="location.href='{{url('/secret/modify/'.$msg["num"])}}'">수정</button>
+                       <input onclick="location.href='{{route('board.index',['category'=>1,'page'=>$page])}}'" type="button" class="btn btn-light" value="목록보기">
+                       @if(\Auth::user()["email"]==$msg->id)
+                       <button class="btn btn-light" onclick="location.href='{{route('board.edit',['num'=>$msg->num,'page'=>$page])}}'">수정</button>
                         <input type="button"
                                onclick="processDelete()"
                                class="btn btn-light" value="삭제하기">
                        @endif
+                       <span style="display:inline-block">
+                           <!--신고-->
+                            @csrf
+                            <input type="submit"  onclick="processReport()" class="btn btn-light" value="신고">
+
+                    </span>
                       </div>
                         <br>
                    <!--댓글쓰기-->
@@ -94,14 +114,8 @@
 
                    </form>
                    <!--댓글-->
-                   <?php
-                   //                            require_once("../CommentDao.php");
-                   //
-                   //                            $cdao = new CommentDao();
-                   //
-                   //                            $cmsgs = $cdao->getManyMsgs(1,$msg["Num"]);
-                   //                            foreach($cmsgs as $cmsg) :
-                   //                          ?>
+
+                   @foreach($msg->comments as $c)
                    <div class="container"style="text-align:left;border-top: 1px solid aquamarine;">
                                   <div class="row align-items-start"  >
                                         <div class="col" style="max-width:20%">
@@ -113,24 +127,19 @@
                                         <div class="col" style="text-align:right">
                                             <!--좋아요 누르기-->    <span class="span">
                             <!--본인의 글에는 errorBack-->
-                                                <?php
-                                                //                                                if($_SESSION["uid"]==$cmsg["id"]){
-                                                //                                            ?>
+                                                @if(\Auth::user()['email']== $c->id)
                                                 <img width="15px" src="{{asset('img/thumbs-up.png')}}" onclick="errorMsg('자신의 글에는 좋아요를 할 수 없습니다')">
-                                                <?php
-                                                //                                                }else{
-                                                //                                            ?><!--    -->
-
+                                                @else
                                                 <a href='../thumb-up.php?cn=1&num=<?php //echo $cmsg["num"]?>&content=<?php //echo $msg["Num"]?>'><img width="15px" src="{{asset('img/thumbs-up.png')}}"></a>
-
-                                                <span class="span"><p><b>좋아요 <?php// $cmsg["good"]?></b>&nbsp;&nbsp;</p></span>
+                                                @endif
+                                                <span class="span"><p><b>좋아요 {{$c->like}}</b>&nbsp;&nbsp;</p></span>
                                                 <!--댓글 단 날짜-->
                                             </span>
                                         </div>
                                   </div>
-                                  <p><?php //$cmsg["comment"]?></p>
+                                  <p>{{$c->comment}}</p>
                           </div>
-                   <?php //  endforeach; ?>
+                       @endforeach
                      </div>
         </div>
 @endsection
