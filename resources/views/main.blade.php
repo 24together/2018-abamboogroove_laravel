@@ -19,15 +19,15 @@
                   <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" href="#"style="color:#53853d" 
                    >대나무숲<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                      <li><a href="{{url('/secret/board')}}" style="color:#53853d">익명게시판</a></li>
-                      <li><a href="{{url('/secret/write')}}" style="color:#53853d">게시글 쓰기</a></li>
+                      <li><a href="{{route('board.index',['category'=>1,'page'=>1])}}" style="color:#53853d">익명게시판</a></li>
+                      <li><a href="{{route('board.create',['category'=>1,'page'=>1])}}" style="color:#53853d">게시글 쓰기</a></li>
                     </ul>
                   </li>
                   <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" href="#"style="color:#53853d" 
                    >자유게시판<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                      <li><a href="{{url('/free/board')}}" style="color:#53853d">게시판</a></li>
-                      <li><a href="{{url('/free/write')}}" style="color:#53853d">게시글 쓰기</a></li>
+                      <li><a href="{{route('board.index',['category'=>2,'page'=>1])}}" style="color:#53853d">게시판</a></li>
+                      <li><a href="{{route('board.create',['category'=>2,'page'=>1])}}" style="color:#53853d">게시글 쓰기</a></li>
                     </ul>
                   </li>
                   <li><a href="./introduce.php"style="color:#53853d">제작자소개</a></li>
