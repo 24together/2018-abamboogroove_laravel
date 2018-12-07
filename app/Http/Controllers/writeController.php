@@ -7,12 +7,34 @@ use Illuminate\Http\Request;
 
 class writeController extends Controller
 {
-
+    public function __construct()
+    {//미들웨어를 이용해 페이지 접근시 로그인체크
+        $this->middleware('login');
+    }
     //////memberboard///////////////////////
-    public function myBoard($id,$page){
+    public function myBoard($id,$page,Request $request){
+
+        $search = $request->search;
+        $range = $request->range;
+
         //페이지 네이션 할 값을 부여한 후 내림차순으로 보이도록
         $msgs = Board::where('id','like',$id)->orderBy('num', 'desc')->paginate(5);
-        return view('member_board', compact('msgs'),['page'=>$page]);
+
+        if(isset($request->search)){
+            switch($range){
+                case "writer":
+                    $msgs = Board::where('id', 'like', $id)->where('writer','LIKE',"%$search%")->orderBy('num', 'desc')->paginate(5);
+                    break;
+                case "content":
+                    $msgs = Board::where('id', 'like', $id)->where('content','LIKE',"%$search%")->orderBy('num', 'desc')->paginate(5);
+                    break;
+                case "titleAndcotent":
+                    $msgs = Board::where('id', 'like', $id)->where('title','LIKE',"%$search%")->orWhere('content','LIKE',"%$search%")->orderBy('num', 'desc')->paginate(5);
+                    break;
+            }
+        }
+
+        return view('member_board', compact('msgs'),['page'=>$page])->with('search',$search)->with('range',$range);
     }
     public function myBoardDelete(Request $request,$page){
         $id = $request->id;
@@ -24,51 +46,10 @@ class writeController extends Controller
         return redirect('mywriting/'.$id.'/'.$page);
     }
     public function myBoardView($num,$page){
+        //신고 되어 나만 볼 수 있는 글의 경우
         $msg =Board::find($num);
 
         return view('member-view',compact('msg'),['page'=>$page]);
     }
-    ///smarteditor///
-    public function summernote(Request $request){
-        $detail=$request->content_;
-
-        $dom = new \domdocument();
-        $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-        $images = $dom->getElementsByTagName('img');
-
-        foreach($images as $k => $img){
-            $data = $img->getAttribute('src');
-
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-
-            $data = base64_decode($data);
-            $image_name= "/upload/".time().$k.'.png';
-            $path = public_path() . $image_name;
-
-            file_put_contents($path, $data);
-
-            $img->removeattribute('src');
-            $img->setattribute('src', $image_name);
-        }
-
-        $detail = $dom->savehtml();
-        $board = new board();
-        $board->title = $request->title;
-        $board->writer = $request->writer;
-        $board->category = $request->category;
-        $board->id = $request->id;
-        $board->content = $detail;
-        $board->save();
-        if($request->category ==1){
-            $board_name="secret";
-        }else if($request->category ==2) {
-            $board_name="free";
-        }
-        return redirect($board_name.'/view/'.$board->num)->with('message','글이 정상적으로 등록되었습니다 !');
-
-    }
-
-
+ 
 }

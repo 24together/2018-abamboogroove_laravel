@@ -14,6 +14,11 @@
 @endsection
 @section('head')
     @include('login.login_check')
+    <script>
+        function processWrite(){
+            alert("죽순이 필요합니다. 댓글을 남겨 좋아요를 5개 이상 받아주세요");
+        }
+    </script>
 @endsection
 @section('main_div')
     board-main-div
@@ -66,10 +71,14 @@
             </div>
             <div class="form-group">
                             <span class="span">
+                                @if(\Auth::user()['write_count']>0)
                                 <button class="btn btn-light" type="submit" >공유하기</button>
+                                @else
+                                <input type="button" class="btn btn-light" onclick="processWrite()" value="공유하기"/>
+                                @endif
                             </span>
                 <span class="span">
-                                <button class="btn btn-light" onclick="location.href='{{route('board.index',['category'=>1,'page'=>1])}}'" >목록보기</button>
+                                <input type="button" class="btn btn-light" onclick="location.href='{{route('board.index',['category'=>1,'page'=>1])}}'" value="목록보기">
                             </span>
             </div>
             </form>

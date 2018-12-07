@@ -19,38 +19,29 @@ Route::get('/member/login','loginController@login');
 Route::get('/member/join','loginController@join');
 Route::get('/member/update','loginController@update');
 Route::post('/member/update','loginController@updatePost');
-//익명 게시판
-Route::get('/secret/write','writeController@secretWrite');
-Route::get('/secret/board','writeController@secretBoard');
-Route::get('/secret/view/{num}','writeController@secretView');
-Route::get('/secret/modify/{num}','writeController@secretModify');
-////자유 게시판
-//섬머노트 작성
-Route::get('/free/write','writeController@freeWrite');
-Route::get('/free/board','writeController@freeBoard');
-//섬머노트 뷰
-Route::get('/free/view/{num}','writeController@freeView');
-//섬머노트 저장
-Route::post('/summernote','writeController@summernote')->name('summernotePersist');
+
 //카카오
 Route::get('/kakao','KakaoLoginController@index');/*카카오 로그인 관련*/
 Route::get('/kakao/login','KakaoLoginController@redirectToProvider');
 Route::get('/kakao/login/callback','KakaoLoginController@handleProviderCallback');
 
-Route::post('/modify/{num}','writeController@modify');
-Route::post('/write','writeController@write');
-
 //카테고리 값 받아 글쓰기
-Route::post('/delete/{num}/{category}','writeController@delete');
+Route::get('/delete/{num}','BoardController@delete');
+Route::get('comment/delete/{num}','CommentController@delete');
 //게시글 별점 부여
-Route::post('/star_up/{num}/{category}','writeController@star');
+Route::post('/star_up/{num}/{category}','BoardController@star');
 //자신의 글 확인
-Route::get('/mywriting/{id}','writeController@myBoard');
-Route::post('/member/board/delete','writeController@myBoardDelete');
+Route::get('/mywriting/{id}/{page}','writeController@myBoard');
+Route::get('/mywriting/view/{num}/{page}','writeController@myBoardView');
+Route::post('/member/board/delete/{page}','writeController@myBoardDelete');
 //신고 기능
-Route::post('/report/{num}/{category}','writeController@report');
-
-
+Route::get('/report/{num}/{category}/{page}','BoardController@report');
+//보드 라우트
+Route::resource('board','BoardController');
+Route::resource('comment','CommentController',['only'=>['store','update']]);
+Route::post('/board/update/{num}','BoardController@update');
+//게시글 좋아요 기능
+Route::get('/thumb_up/{num}','CommentController@thumb_up');
 Auth::routes();
 
 

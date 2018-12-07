@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 
 class mainController extends Controller
 {
-    public function main(){
+    public function main(){//메인페이지
         return view('index');
     }
-    public function secret_write(){
 
-    }
 }

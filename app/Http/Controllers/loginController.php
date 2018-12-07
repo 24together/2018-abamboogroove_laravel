@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class loginController extends Controller
 {
+    public function __construct()
+    {//미들웨어를 이용해 회원정보수정 접근시 로그인체크
+        $this->middleware('login')->only('update');
+    }
+
     public function login(){
         return view('login.member-login');
     }

@@ -6,16 +6,15 @@
         @yield('style1')
         @yield('head')
         @yield('kakao_head')
-<!------ Include the above in your HEAD tag ---------->
+
   </head>
 <body id=@yield('form')>
   @yield('login_ check')
   @yield('nav_bar')
 
-
-
     <div class="container" style="margin-top:50px; @yield('container_style')">
 
+        <!--사용자 정보-->
 @yield('imfor_div')
 
 @yield('logo')

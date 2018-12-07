@@ -1,3 +1,4 @@
+<!--스타일시트:부트스트랩3-->
 <link href="{{asset('css/stylesheet.css')}}" rel="stylesheet">
 <!-- include libraries(jQuery, bootstrap) -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>

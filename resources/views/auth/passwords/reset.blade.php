@@ -33,7 +33,7 @@
 
         <div class="form-group">
             <span class="Logo" style="width:30%"><label for="pw" style="margin-right :10px">Password </label></span>
-            <span class="Logo" style="width:60% "><input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" ></span>
+            <span class="Logo" style="width:60% "><input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" value="{{\Auth::user()['password']}}"></span>
             @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>

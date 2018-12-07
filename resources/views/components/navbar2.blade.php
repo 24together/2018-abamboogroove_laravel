@@ -1,3 +1,4 @@
+<!--네이게이션 바, 부트스트랩 3 용-->
 <nav class="navbar navbar-inverse" style="border:0px none white">
     <div class="container-fluid" style="background-color:white">
 

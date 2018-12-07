@@ -1,3 +1,4 @@
+<!--로그인 페이지-->
 @extends('default-form')
 
 @section('title')
@@ -19,23 +20,21 @@
     main-div
 @endsection
 @section('content')
+    <!--설명-->
     <div class="panel">
         <h2>Admin Login</h2>
         <p>Please enter your ID and password</p>
     </div>
+    <!--auth 컨트롤러를 사용한 로그인 폼-->
     <form id="Login" action="{{route('login')}}" method="post">
         @csrf
         <div class="form-group">
-
             <input type="text" name="email" class="form-control" placeholder="ID">
-
         </div>
-
         <div class="form-group">
-
             <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
-
         </div>
+        <!--카카오 로그인 버튼-->
         <div class="form-group">
             @include('login.kakao_login')
         </div>
@@ -44,6 +43,7 @@
     </form>
 @endsection
 @section('logo')
+    <!-- 왼쪽 상단 로고-->
 <span class="logo">
     <img src="{{asset('img/Bamboo.png')}}" width="30px" height="30px" ></span>
 <span class="logo">

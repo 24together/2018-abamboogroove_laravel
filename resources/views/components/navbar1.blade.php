@@ -1,3 +1,4 @@
+<!--네이게이션 바, 부트스트랩 4 용-->
 <nav class="navbar navbar-expand-sm bg-white navbar-white">
     <!-- Brand/logo -->
     <a class="navbar-brand" href="{{url('/')}}"style="color:gray">a bamboo grove</a>

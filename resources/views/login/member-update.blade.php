@@ -1,3 +1,4 @@
+<!--회원 정보 수정-->
 @extends('default-form')
 
 @section('title')
@@ -15,14 +16,13 @@
 @section('main_div')
     main-div
 @endsection
-@section('head')
-    @include('login.login_check')
-@endsection
 @section('content')
+    <!--설명-->
         <div class="panel">
             <h2>회원 정보 수정</h2>
             <p>회원정보 수정 후 수정버튼을 눌러주세요.</p>
         </div>
+    <!--auth 컨트롤러를 사용한 회원정보 수정 폼-->
         <form id="Login" action="{{ route('password.update') }}" method="post">
 
             @csrf
@@ -50,6 +50,7 @@
                                     </span>
                 @endif
             </div>
+            <!--나이대 선택, 콤보박스-->
             <div class="form-group">
                 <label for="age">Age </label>
                 <select name="age" class="custom-select mb-3" >
@@ -65,6 +66,7 @@
         </form>
 @endsection
 @section('logo')
+    <!--왼쪽 상단 로고-->
     <span class="logo">
     <img src="{{asset('img/Bamboo.png')}}" width="30px" height="30px" ></span>
     <span class="logo">

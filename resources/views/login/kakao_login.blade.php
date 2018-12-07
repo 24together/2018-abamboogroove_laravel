@@ -1,4 +1,4 @@
-
+<!--카카오 로그인-->
 <a id="kakao-login-btn"></a>
 <a href="http://developers.akao.com/logout"></a>
 <script type='text/javascript'>
@@ -15,5 +15,4 @@
             alert(JSON.stringify(err));
         }
     });
-    //]]>
 </script>

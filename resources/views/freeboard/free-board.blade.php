@@ -20,13 +20,23 @@
 @section('imfor_div')
     @include('components.imfor_div')
 @endsection
+@section('head')
+    <!--검색 스크립트-->
+    <script>
+        function searchBtn(page) {
+            var searchValue = document.getElementById('inputState').value;
+            var search = document.getElementById('inputText').value;
+            page = 1;
+            var url = 'board?search=' + search + '&range=' + searchValue + '&page=' + page+'&category=2';
+
+            location.href = url;
+        }
+    </script>
+@endsection
 @section('content')
-    @if (isset($message))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-        </div>
-    @endif
+    <!--메세지-->
+    @include('components.message')
+    <!--로고, 설명-->
             <div class="panel">
                 <img src="{{asset('img/free_logo.png')}}" width="120px">
                 <p>사람들과 자유롭게 이야기 해 보세요.</p>
@@ -43,13 +53,19 @@
                     </tr>
                     @foreach($msgs as $msg)
                     <tr>
-                        <td><a href="{{route('board.show',['num'=>$msg->num, 'page'=>$page])}}">{{$msg->title}}</a></td>
+                        @if(isset($search))
+                            <td><a href="{{route('board.show',['num'=>$msg->num, 'page'=>$page,'search'=>$search,'range'=>$range])}}">{{$msg->title}}</a></td>
+                        @else
+                            <td><a href="{{route('board.show',['num'=>$msg->num, 'page'=>$page])}}">{{$msg->title}}</a></td>
+                        @endif
                         <td>{{$msg->writer}} </td>
                         <td>{{$msg->created_at}} </td>
                         <td>{{$msg->hits}} </td>
                         <td>
-                            <div class="span"><!--별저으로 나타내기-->
+                            <div class="span">
+                                <!--별저으로 나타내기-->
                                 <?php
+                                //(별점 수 합/부여한 사람 수) 계산하여 별점 평균 내기
                                 if ($msg->stars >0 && $msg->setstar >0){
                                     $star = $msg-> stars /$msg->setstar;
                                 }else{
@@ -57,9 +73,9 @@
                                 }
                                 ?>
                                 @for($i=0; $i<5; $i++)
-                                @if($i < $star )
+                                @if($i < $star )<!--채워진 별사진-->
                                 <span><img src="{{asset('img/star2.png')}}" width="25px"></span>
-                                @else
+                                @else<!--빈 별사진-->
                                 <span><img src="{{asset('img/star.png')}}" width="25px"></span>
                                 @endif
                                 @endfor
@@ -68,6 +84,7 @@
                     @endforeach
                 </table>
             </div>
+            @include('components.search')
 @endsection
 @section('pagination')
     @include('components.pagination')

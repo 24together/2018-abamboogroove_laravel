@@ -1,3 +1,4 @@
+<!--회원가입-->
 @extends('default-form')
 
 @section('title')
@@ -17,22 +18,20 @@
 @endsection
 @section('content')
 
-
-
     <div class="row justify-content-center">
         <div class="col-md-8">
-
             <div class="card">
-
+                <!--로고, 설명-->
                 <div class="card-body">
                     <div class="panel">
                         <h2>회원가입</h2>
                         <p>회원 정보를 작성해주세요.</p>
                     </div>
+                    <!--auth 컨트롤러를 이용한 회원가입-->
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <input name="write_count" value="0" hidden>
-
+                    <!--이름-->
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -46,7 +45,7 @@
                                 @endif
                             </div>
                         </div>
-
+                    <!--이메일-->
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -60,7 +59,7 @@
                                 @endif
                             </div>
                         </div>
-
+                    <!--비밀번호-->
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -74,7 +73,7 @@
                                 @endif
                             </div>
                         </div>
-
+                    <!--비밀번호 확인-->
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -82,6 +81,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                    <!--나이대-->
                         <div class="form-group row">
                             <label for="age" class="col-md-4 col-form-label text-md-right">{{ __('Age') }}</label>
 
@@ -107,9 +107,11 @@
                             </div>
 
                         </div>
+                        <!--카카오톡으로 로그인-->
                         <div class="form-group">
                             @include('login.kakao_login')
                         </div>
+                        <!--버튼-->
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -20,7 +20,7 @@
                    >대나무숲<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a href="{{route('board.index',['category'=>1,'page'=>1])}}" style="color:#53853d">익명게시판</a></li>
-                      <li><a href="{{route('board.create',['category'=>1,'page'=>1])}}" style="color:#53853d">게시글 쓰기</a></li>
+                        <li><a href="{{route('board.create',['category'=>1,'page'=>1])}}" style="color:#53853d">게시글 쓰기</a></li>
                     </ul>
                   </li>
                   <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" href="#"style="color:#53853d" 
@@ -49,16 +49,17 @@
 
                 @endif
 
-           </ul> 
-<!--           </form>-->
+           </ul>
             </div>
             </nav>
 
         <div class="mainpage-div" >
         <div class="form-heading">
+    <!--로고사진-->
         <span class="logo">
             <img src="{{asset('img/logo.png')}}" height="80px" ></span>
           </div>
+    <!--슬라이드 바 제이쿼리-->
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">

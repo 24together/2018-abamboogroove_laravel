@@ -8,6 +8,18 @@
 @section('style1')
     @include('components.style2')
 @endsection
+@section('head')
+    <!--검색 스크립트-->
+    <script>
+        function searchBtn(page) {
+            var searchValue = document.getElementById('inputState').value;
+            var search = document.getElementById('inputText').value;
+            var url = 'mywriting/{{\Auth::user()['email']}}/1?search=' + search + '&range=' + searchValue + '&page=' + page;
+
+            location.href = url;
+        }
+    </script>
+@endsection
 @section('nav_bar')
     <nav class="navbar navbar-inverse" style="border:0px none white">
         <div class="container-fluid" style="background-color:white">
@@ -106,6 +118,8 @@
             </div>
         </form>
     </div>
+    <!--검색기능-->
+    @include('components.search')
 @endsection
 @section('pagination')
     <div class = text-center">

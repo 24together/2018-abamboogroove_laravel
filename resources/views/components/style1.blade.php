@@ -1,3 +1,4 @@
+<!--스타일시트:부트스트랩4-->
 <link href="{{asset('css/stylesheet.css')}}" rel="stylesheet">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
