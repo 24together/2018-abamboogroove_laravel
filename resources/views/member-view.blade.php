@@ -29,7 +29,6 @@
                         <li><a href="{{route('board.create',['category'=>2,'page'=>1])}}" style="color:#C592C0">게시글 쓰기</a></li>
                     </ul>
                 </li>
-                <li><a href="./introduce.php"style="color:#C592C0">제작자소개</a></li>
             </ul>
         </div>
     </nav>

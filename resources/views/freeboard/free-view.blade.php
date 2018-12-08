@@ -29,6 +29,9 @@
                     location.href = "{{url('report/'.$msg['num'].'/2/1')}}";
             }
         }
+        function errorMsg(message){//별점 에러
+            alert(message);
+        }
     </script>
 @endsection
 @section('content')

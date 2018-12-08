@@ -10,9 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('welcome', function (){
-    return view('welcome');
-});
+
 //로그인관리
 Route::get('/', 'mainController@main');/*접속했을 때 메인만 보이려면*/
 Route::get('/member/login','loginController@login');

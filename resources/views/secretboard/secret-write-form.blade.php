@@ -13,7 +13,6 @@
     @include('components.style1')
 @endsection
 @section('head')
-    @include('login.login_check')
     <script>
         function processWrite(){
             alert("죽순이 필요합니다. 댓글을 남겨 좋아요를 5개 이상 받아주세요");

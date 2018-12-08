@@ -34,6 +34,6 @@
         @if(\Auth::user()['email']==$msg['id'])
             <button type="button" class="btn btn-success" onclick="errorMsg('자신의 글엔 별점을 줄 수 없습니다.')">별점주기</button>
         @else
-            <button type="submit" class="btn btn-success" onclick="AjaxCall()">별점주기</button>
+            <button type="submit" class="btn btn-success" >별점주기</button>
         @endif
     </span>

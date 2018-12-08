@@ -18,8 +18,10 @@ class BoardController extends Controller
         $category = $request->category;
         $page = $request->page;
 
-            $search = $request->search;
-            $range = $request->range;
+        $message = $request->message;
+
+        $search = $request->search;
+        $range = $request->range;
 
         //페이지네이션
         $msgs = Board::where('category', 'like', $category)->orderBy('num', 'desc')->paginate(5);
@@ -46,9 +48,9 @@ class BoardController extends Controller
         //1 = 익명게시판
         //2 = 자유게시판
         if ($category == 1) {
-            return view('secretboard.secret-board', compact('msgs'))->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range);
+            return view('secretboard.secret-board', compact('msgs'))->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range)->with('message',$message);
         } else if ($category == 2) {
-            return view('freeboard.free-board', compact('msgs'))->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range);
+            return view('freeboard.free-board', compact('msgs'))->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range)->with('message',$message);
         }
 
     }
@@ -118,6 +120,7 @@ class BoardController extends Controller
         $page = $request->page;
         $search = $request->search;
         $range = $request->range;
+        $message = $request->message;
 
         $msg = Board::find($num);
         $msg->increment('hits');
@@ -125,9 +128,9 @@ class BoardController extends Controller
 
         $category = $msg->category;
         if ($category == 1) {
-            return view('secretboard.secret-view', ['msg' => $msg], ['ran' => $ran])->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range);
+            return view('secretboard.secret-view', ['msg' => $msg], ['ran' => $ran])->with('message',$message)->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range);
         } else if ($category == 2) {
-            return view('freeboard.free-view', ['msg' => $msg])->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range);
+            return view('freeboard.free-view', ['msg' => $msg])->with('category', $category)->with('page', $page)->with('search',$search)->with('range',$range)->with('message',$message);
         }
     }
 
@@ -165,11 +168,8 @@ class BoardController extends Controller
 
         $msg = Board::find($num);
         //카테고리 구분
-        if ($category == 1) {
-            return redirect()->route('board.show', ['num'=> $num, 'page'=>$page])->with('category', $category)->with('message', '수정을 완료하였습니다');
-        } else if ($category == 2) {
-            return redirect()->route('board.show', ['num'=> $num, 'page'=>$page])->with('category', $category)->with('message', '수정을 완료하였습니다.');
-        }
+            return redirect()->route('board.show', ['num'=> $num, 'page'=>$page,'message'=>'수정을 완료하였습니다'])->with('category', $category);
+
     }
 
     public function delete(Request $request, $num)
@@ -184,9 +184,9 @@ class BoardController extends Controller
         $msgs = Board::where('category', 'like', $category)->orderBy('num', 'desc')->paginate(5);
         //카테고리 구분
         if ($category == 1) {
-            return redirect()->route('board.index',['category'=>$category,'page'=>$page])->with('message', '글삭제를 완료하였습니다');
+            return redirect()->route('board.index',['category'=>$category,'page'=>$page,'message'=>'글삭제를 완료하였습니다']);
         } else if ($category == 2) {
-            return redirect()->route('board.index',['category'=>$category,'page'=>$page])->with('message', '글삭제를 완료하였습니다');
+            return redirect()->route('board.index',['category'=>$category,'page'=>$page,'message'=>'글삭제를 완료하였습니다']);
         } else if($category ==3) {
             return redirect('mywriting/'.$id.'/1');
         }
@@ -202,15 +202,10 @@ class BoardController extends Controller
         $board->save();
 
         $msg = $board;
-        //카테고리 구분
-        if ($msg->category == 1) {
-            return redirect()->route('board.show', ['num' => $num])->with('message', '별점부여를 완료하였습니다');
-        } else if ($msg->category == 2) {
-            return redirect()->route('board.show', ['num' => $num])->with('message', '별점부여를 완료하였습니다');
-        }
+
+        return redirect()->route('board.show', ['num' => $num,'message'=>'별점을 주었습니다']);
+
     }
-
-
     public function report($num, $category, $page)
     {//게시글 신고
         //신고가 5이상일 경우 사람들과 공유하는 게시판에 게시 x
@@ -223,12 +218,7 @@ class BoardController extends Controller
         //신고 5이상
         if ($board['report_count'] >= 5) {
             $board->update(['category' => 3]);
-            if ($category == 1) {
-
-                return redirect()->route('board.index',['category'=>$category,'page'=>$page])->with('message', '신고했습니다.');
-            } else if ($category == 2) {
-                return redirect()->route('board.index',['category'=>$category,'page'=>$page])->with('message', '신고했습니다.');
-            }
+                return redirect()->route('board.index',['category'=>$category,'page'=>$page,'message'=>'신고했습니다.']);
         } else {//신고 5이하
             if ($category == 1) {
                 return back()->with('page', $page)->with('message', '신고했습니다.');

@@ -45,7 +45,7 @@
             <span class="Logo" style="width:60% "><input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" value="{{\Auth::user()['name']}}"></span>
             @if ($errors->has('name'))
                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                 </span>
             @endif
         </div>

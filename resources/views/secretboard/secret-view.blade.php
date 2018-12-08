@@ -29,6 +29,9 @@
                     location.href="{{url('report/'.$msg['num'].'/1/1')}}";
             }
         }
+        function errorMsg(message){//별점 에러 표시
+            alert(message);
+        }
     </script>
 @endsection
 @section('main_div')

@@ -30,7 +30,6 @@
                       <li><a href="{{route('board.create',['category'=>2,'page'=>1])}}" style="color:#53853d">게시글 쓰기</a></li>
                     </ul>
                   </li>
-                  <li><a href="./introduce.php"style="color:#53853d">제작자소개</a></li>
                 </ul>
                  <ul class="nav navbar-nav navbar-right">
                   @if(\Auth::check())

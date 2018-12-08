@@ -37,7 +37,7 @@
                 <span class="Logo" style="width:60% "><input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="pwd" name="pw" value="{{\Auth::user()['password']}}"></span>
                 @if ($errors->has('password'))
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                        <strong>{{ $errors->first('password') }}</strong>
                     </span>
                 @endif
             </div>
@@ -46,8 +46,8 @@
                 <span class="Logo" style="width:60% "><input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" value="{{\Auth::user()['name']}}"></span>
                 @if ($errors->has('password'))
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                         <strong>{{ $errors->first('password') }}</strong>
+                    </span>
                 @endif
             </div>
             <!--나이대 선택, 콤보박스-->

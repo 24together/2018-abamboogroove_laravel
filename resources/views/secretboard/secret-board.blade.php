@@ -56,7 +56,7 @@
 
         <!--게시판 내용-->
         <div class="container">
-            <table class="table table-hover">
+            <table class="table table-hover" style="width:680px">
 
                 <tr>
                     <th>제목</th>
@@ -100,6 +100,7 @@
                                 @endif
                                 @endfor
                             </div>
+
                         </td>
                         @endforeach
             </table>
