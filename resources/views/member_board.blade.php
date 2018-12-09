@@ -14,9 +14,9 @@
         function searchBtn(page) {
             var searchValue = document.getElementById('inputState').value;
             var search = document.getElementById('inputText').value;
-            var url = 'mywriting/{{\Auth::user()['email']}}/1?search=' + search + '&range=' + searchValue + '&page=' + page;
+            var url = 'http://www.abamboogrove.site/mywriting/{{\Auth::user()['email']}}/1?search=' + search + '&range=' + searchValue + '&page=' + page;
 
-            location.href = url;
+            window.location.href = url;
         }
     </script>
 @endsection

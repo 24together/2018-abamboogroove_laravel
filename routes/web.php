@@ -29,7 +29,7 @@ Route::get('comment/delete/{num}','CommentController@delete');
 //게시글 별점 부여
 Route::post('/star_up/{num}/{category}','BoardController@star');
 //자신의 글 확인
-Route::get('/mywriting/{id}/{page}','writeController@myBoard');
+Route::get('/mywriting/{id}/{page}/{search?}/{range?}','writeController@myBoard');
 Route::get('/mywriting/view/{num}/{page}','writeController@myBoardView');
 Route::post('/member/board/delete/{page}','writeController@myBoardDelete');
 //신고 기능
