@@ -22,8 +22,8 @@ class writeController extends Controller
 
         if(isset($request->search)){
             switch($range){
-                case "writer":
-                    $msgs = Board::where('id', 'like', $id)->where('writer','LIKE',"%$search%")->orderBy('num', 'desc')->paginate(5);
+                case "title":
+                    $msgs = Board::where('id', 'like', $id)->where('title','LIKE',"%$search%")->orderBy('num', 'desc')->paginate(5);
                     break;
                 case "content":
                     $msgs = Board::where('id', 'like', $id)->where('content','LIKE',"%$search%")->orderBy('num', 'desc')->paginate(5);
