@@ -8,16 +8,16 @@ Laravelで具現した掲示板です。
  
  # 機能
 <ul>
-<li>kakaotalk login</li>
+<li>kakaotalk login　カカオトークログイン</li>
 <li>smarteditor(ck editor)</li>
-<li>comment</li>
-<li>like button (comment)</li>
-<li>rating(board)</li>
-<li>mypage</li>
-<li>comment</li>
-<li>reporting</li>
-<li>modify and delete</li>
-<li>search</li>	
+<li>comment　レス</li>
+<li>like button (comment)　いいね！ボタン</li>
+<li>rating(board)　人の掲示を評価</li>
+<li>mypage　会員のページ</li>
+<li>Delete selected My post　会員の掲示を選択して削除</li>	    
+<li>reporting　申告</li>
+<li>modify and delete　修正と削除</li>
+<li>search　検索</li>	
 </ul>
 
 라라벨로 구현한 대나무숲 게시판입니다.
